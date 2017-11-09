@@ -48,6 +48,9 @@ return [
     'delete_confirm'    => '确认删除?',
     'delete_succeeded'  => '删除成功 !',
     'delete_failed'     => '删除失败 !',
+    'disable_confirm'   => '确认禁用?',
+    'disable_succeeded' => '禁用成功!',
+    'disable_failed'    => '禁用失败!',
     'update_succeeded'  => '更新成功 !',
     'save_succeeded'    => '保存成功 !',
     'refresh_succeeded' => '刷新成功 !',
@@ -87,7 +90,7 @@ return [
     'confirm'    => '确认',
     'cancel'     => '取消',
 
-    'http' => [
+    'http'                 => [
         'method' => 'HTTP方法',
         'path'   => 'HTTP路径',
     ],
@@ -97,10 +100,10 @@ return [
     'current_page'  => '当前页',
     'selected_rows' => '选择的行',
 
-    'upload'        => '上传',
-    'new_folder'    => '新建文件夹',
-    'time'          => '时间',
-    'size'          => '大小',
+    'upload'     => '上传',
+    'new_folder' => '新建文件夹',
+    'time'       => '时间',
+    'size'       => '大小',
 
     'listbox' => [
         'text_total'         => '总共 {0} 项',

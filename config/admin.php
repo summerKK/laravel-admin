@@ -5,49 +5,49 @@ return [
     /*
      * Laravel-admin name.
      */
-    'name'      => 'Laravel-admin',
+    'name'          => 'Laravel-admin',
 
     /*
      * Logo in admin panel header.
      */
-    'logo'      => '<b>Laravel</b> admin',
+    'logo'          => '<b>Laravel</b> admin',
 
     /*
      * Mini-logo in admin panel header.
      */
-    'logo-mini' => '<b>La</b>',
+    'logo-mini'     => '<b>La</b>',
 
     /*
      * Route configration.
      */
-    'route' => [
+    'route'         => [
 
         'prefix' => 'admin',
 
-        'namespace'     => 'App\\Admin\\Controllers',
+        'namespace' => 'App\\Admin\\Controllers',
 
-        'middleware'    => ['web', 'admin'],
+        'middleware' => ['web', 'admin'],
     ],
 
     /*
      * Laravel-admin install directory.
      */
-    'directory' => app_path('Admin'),
+    'directory'     => app_path('Admin'),
 
     /*
      * Laravel-admin html title.
      */
-    'title'  => 'Admin',
+    'title'         => 'Admin',
 
     /*
      * Use `https`.
      */
-    'secure' => false,
+    'secure'        => false,
 
     /*
      * Laravel-admin auth setting.
      */
-    'auth' => [
+    'auth'          => [
         'guards' => [
             'admin' => [
                 'driver'   => 'session',
@@ -66,39 +66,39 @@ return [
     /*
      * Laravel-admin upload setting.
      */
-    'upload'  => [
+    'upload'        => [
 
         'disk' => 'admin',
 
-        'directory'  => [
-            'image'  => 'images',
-            'file'   => 'files',
+        'directory' => [
+            'image' => 'images/' . date('Y-m'),
+            'file'  => 'files/' . date('Y-m'),
         ],
     ],
 
     /*
      * Laravel-admin database setting.
      */
-    'database' => [
+    'database'      => [
 
         // Database connection for following tables.
-        'connection'  => '',
+        'connection'             => '',
 
         // User tables and model.
-        'users_table' => 'admin_users',
-        'users_model' => Encore\Admin\Auth\Database\Administrator::class,
+        'users_table'            => 'admin_users',
+        'users_model'            => Encore\Admin\Auth\Database\Administrator::class,
 
         // Role table and model.
-        'roles_table' => 'admin_roles',
-        'roles_model' => Encore\Admin\Auth\Database\Role::class,
+        'roles_table'            => 'admin_roles',
+        'roles_model'            => Encore\Admin\Auth\Database\Role::class,
 
         // Permission table and model.
-        'permissions_table' => 'admin_permissions',
-        'permissions_model' => Encore\Admin\Auth\Database\Permission::class,
+        'permissions_table'      => 'admin_permissions',
+        'permissions_model'      => Encore\Admin\Auth\Database\Permission::class,
 
         // Menu table and model.
-        'menu_table'  => 'admin_menu',
-        'menu_model'  => Encore\Admin\Auth\Database\Menu::class,
+        'menu_table'             => 'admin_menu',
+        'menu_model'             => Encore\Admin\Auth\Database\Menu::class,
 
         // Pivot table for table above.
         'operation_log_table'    => 'admin_operation_log',
@@ -111,7 +111,7 @@ return [
     /*
      * By setting this option to open or close operation log in laravel-admin.
      */
-    'operation_log'   => [
+    'operation_log' => [
 
         'enable' => true,
 
@@ -129,7 +129,7 @@ return [
     /*
      * @see https://adminlte.io/docs/2.4/layout
      */
-    'skin'    => 'skin-blue-light',
+    'skin'          => 'skin-blue-light',
 
     /*
     |---------------------------------------------------------|
@@ -140,17 +140,17 @@ return [
     |               | sidebar-mini                            |
     |---------------------------------------------------------|
      */
-    'layout'  => ['sidebar-mini', 'sidebar-collapse'],
+    'layout'        => ['sidebar-mini', 'sidebar-collapse'],
 
     /*
      * Version displayed in footer.
      */
-    'version'   => '1.5.x-dev',
+    'version'       => '1.5.x-dev',
 
     /*
      * Settings for extensions.
      */
-    'extensions' => [
+    'extensions'    => [
 
     ],
 ];

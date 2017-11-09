@@ -48,6 +48,9 @@ return [
     'delete_confirm'    => 'Are you sure to delete this item ?',
     'delete_succeeded'  => 'Delete succeeded !',
     'delete_failed'     => 'Delete failed !',
+    'disable_confirm'   => 'Are you sure to disable this item ?',
+    'disable_succeeded' => 'Disable succeeded !',
+    'disable_failed'    => 'Disable failed !',
     'update_succeeded'  => 'Update succeeded !',
     'save_succeeded'    => 'Save succeeded !',
     'refresh_succeeded' => 'Refresh succeeded !',
@@ -87,7 +90,7 @@ return [
     'confirm'    => 'Confirm',
     'cancel'     => 'Cancel',
 
-    'http' => [
+    'http'                 => [
         'method' => 'HTTP method',
         'path'   => 'HTTP path',
     ],
@@ -97,10 +100,10 @@ return [
     'current_page'  => 'Current page',
     'selected_rows' => 'Selected rows',
 
-    'upload'        => 'Upload',
-    'new_folder'    => 'New folder',
-    'time'          => 'Time',
-    'size'          => 'Size',
+    'upload'     => 'Upload',
+    'new_folder' => 'New folder',
+    'time'       => 'Time',
+    'size'       => 'Size',
 
     'listbox' => [
         'text_total'         => 'Showing all {0}',

@@ -15,4 +15,6 @@ Route::group([
     $router->resource('movies', MoviesController::class);
     $router->resource('products', ProductsController::class);
 
+    $router->post('products/disable/{id}', 'ProductsController@disableProducts');
+
 });
