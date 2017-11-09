@@ -47,9 +47,8 @@ $('.disable_goods').on('click', function() {
     function(){
         $.ajax({
             method: 'post',
-            url: '/admin/products/' + 'disable/' + id,
+            url: '/admin/products/disable/' + id,
             data: {
-                _method:'post',
                 _token:'{$this->getToken()}'
             },
             success: function (data) {
