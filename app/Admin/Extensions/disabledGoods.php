@@ -8,10 +8,10 @@
 
 namespace App\Admin\Extensions;
 
+use App\Models\Products;
 use Encore\Admin\Admin;
-use Encore\Admin\Grid\Tools\BatchAction;
 
-class disabledGoods extends BatchAction
+class disabledGoods
 {
     protected $id;
 
@@ -21,9 +21,9 @@ class disabledGoods extends BatchAction
     }
 
     /**
-     * Script of batch delete action.
+     * Script of batch disable action.
      */
-    public function script()
+    protected function script()
     {
         $disableConfirm = trans('admin.disable_confirm');
         $confirm        = trans('admin.confirm');
@@ -32,8 +32,6 @@ class disabledGoods extends BatchAction
         return <<<EOT
 
 $('.disable_goods').on('click', function() {
-
-    var id = selectedRows().join();
 
     swal({
       title: "$disableConfirm",
@@ -47,7 +45,7 @@ $('.disable_goods').on('click', function() {
     function(){
         $.ajax({
             method: 'post',
-            url: '/admin/products/disable/' + id,
+            url: '/admin/products/disable/{$this->id}',
             data: {
                 _token:'{$this->getToken()}'
             },
@@ -74,10 +72,17 @@ EOT;
         Admin::script($this->script());
 
         return "<a class='fa fa-close disable_goods' data-id='{$this->id}'></a>";
+
+    }
+
+    protected function getToken()
+    {
+        return csrf_token();
     }
 
     public function __toString()
     {
         return $this->render();
     }
+
 }

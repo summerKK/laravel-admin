@@ -69,14 +69,9 @@ class ProductsController extends Controller
 
     public function disableProducts($id)
     {
-        $ids = explode(',', $id);
 
-        foreach ($ids as $id) {
-            if (empty($id)) {
-                continue;
-            }
-            Products::find($id)->update(['grade' => 2, 'status' => 2]);
-        }
+        return false;
+        Products::find($id)->update(['grade' => 2, 'status' => 2]);
 
         return true;
     }
@@ -92,7 +87,9 @@ class ProductsController extends Controller
 
             $grid->disableCreation();
 
-            $grid->actions(function ($actions) {
+            $id = $grid->getKeyName('id');
+
+            $grid->actions(function ($actions) use ($id) {
                 $actions->disableDelete();
                 // append一个操作
                 $actions->append(new disabledGoods($actions->getKey()));
