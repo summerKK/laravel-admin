@@ -11,7 +11,7 @@ namespace App\Admin\Extensions;
 use App\Models\Products;
 use Encore\Admin\Admin;
 
-class disabledGoods
+class enableGoods
 {
     protected $id;
 
@@ -25,16 +25,18 @@ class disabledGoods
      */
     protected function script()
     {
-        $disableConfirm = trans('admin.disable_confirm');
-        $confirm        = trans('admin.confirm');
-        $cancel         = trans('admin.cancel');
+        $enableConfirm = trans('admin.enable_confirm');
+        $confirm       = trans('admin.confirm');
+        $cancel        = trans('admin.cancel');
 
         return <<<EOT
 
-$('.disable_goods').on('click', function() {
+$('.enable_goods').unbind('click').click(function() {
+
+    var id = $(this).data('id')
 
     swal({
-      title: "$disableConfirm",
+      title: "$enableConfirm",
       type: "warning",
       showCancelButton: true,
       confirmButtonColor: "#DD6B55",
@@ -45,7 +47,7 @@ $('.disable_goods').on('click', function() {
     function(){
         $.ajax({
             method: 'post',
-            url: '/admin/products/disable/{$this->id}',
+            url: '/admin/products/enable/' + id,
             data: {
                 _token:'{$this->getToken()}'
             },
@@ -71,7 +73,7 @@ EOT;
     {
         Admin::script($this->script());
 
-        return "<a class='fa fa-close disable_goods' data-id='{$this->id}'></a>";
+        return "<a class='fa fa-check enable_goods' data-id='{$this->id}'></a>";
 
     }
 

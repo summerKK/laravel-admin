@@ -132,4 +132,31 @@ class Products extends Model
         }
     }
 
+    /**
+     * @param $vendorId
+     * @return mixed|string
+     */
+    public function getVendorIdAttribute($vendorId)
+    {
+        if ($vendorName = Vendor::find($vendorId)) {
+            return $vendorName->vendor;
+        }
+
+        return '';
+    }
+
+    /**
+     * @param $vendorName
+     * @return int|mixed|null
+     */
+    public function setVendorIdAttribute($vendorName)
+    {
+        $vendor = Vendor::where('vendor', $vendorName)->first();
+        if ($vendor) {
+            return $vendor->id;
+        }
+
+        return null;
+    }
+
 }

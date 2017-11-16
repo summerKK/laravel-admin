@@ -16,5 +16,6 @@ Route::group([
     $router->resource('products', ProductsController::class);
 
     $router->post('products/disable/{id}', 'ProductsController@disableProducts');
+    $router->post('products/enable/{id}', 'ProductsController@enableProducts');
 
 });

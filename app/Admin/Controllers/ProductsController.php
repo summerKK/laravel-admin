@@ -2,7 +2,8 @@
 
 namespace App\Admin\Controllers;
 
-use App\Admin\Extensions\disabledGoods;
+use App\Admin\Extensions\disableGoods;
+use App\Admin\Extensions\enableGoods;
 use App\Models\GoodsType;
 use App\Models\Products;
 
@@ -67,13 +68,36 @@ class ProductsController extends Controller
         });
     }
 
+
+    /**
+     * @param $id
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function disableProducts($id)
     {
 
-        return false;
         Products::find($id)->update(['grade' => 2, 'status' => 2]);
 
-        return true;
+        return response()->json([
+            'status'  => true,
+            'message' => trans('admin.disable_succeeded'),
+        ]);
+    }
+
+
+    /**
+     * @param $id
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function enableProducts($id)
+    {
+
+        Products::find($id)->update(['grade' => 1, 'status' => 1]);
+
+        return response()->json([
+            'status'  => true,
+            'message' => trans('admin.enable_succeeded'),
+        ]);
     }
 
     /**
@@ -84,16 +108,6 @@ class ProductsController extends Controller
     protected function grid()
     {
         return Admin::grid(Products::class, function (Grid $grid) {
-
-            $grid->disableCreation();
-
-            $id = $grid->getKeyName('id');
-
-            $grid->actions(function ($actions) use ($id) {
-                $actions->disableDelete();
-                // append一个操作
-                $actions->append(new disabledGoods($actions->getKey()));
-            });
 
             $grid->id()->sortable();
             $grid->author()->display(function ($value) {
@@ -156,6 +170,18 @@ class ProductsController extends Controller
             $grid->created_at()->sortable();
             $grid->updated_at()->sortable();
 
+            $grid->disableCreation();
+
+            $grid->actions(function ($actions) {
+                $actions->disableDelete();
+                // append一个操作
+                if ($actions->row->grade == 1 && $actions->row->status == 1) {
+                    $actions->append(new disableGoods($actions->getKey()));
+                } else {
+                    $actions->append(new enableGoods($actions->getKey()));
+                }
+            });
+
         });
     }
 
@@ -171,9 +197,6 @@ class ProductsController extends Controller
             $form->display('id', 'ID');
 
             $form->display('author')->with(function ($value) {
-                if (!$value) {
-                    return;
-                }
                 if ($value === 0) {
                     return 'crawler';
                 }
@@ -182,9 +205,6 @@ class ProductsController extends Controller
             });
 
             $form->display('src')->with(function ($value) {
-                if (!$value) {
-                    return;
-                }
                 $src = [
                     1 => 'CRAWLER',
                     2 => 'EXCEL',
@@ -200,25 +220,20 @@ class ProductsController extends Controller
             $form->text('name_eng', 'Name(eng)');
             $form->select('audit')->options([0 => 'no', 1 => 'yes'])->help('确认爬虫爬回来的数据是否已经审核过 0 未审核 1已审核');
             $form->display('grade', 'Clawler Error')->with(function ($value) {
-                if (!$value) {
-                    return;
-                }
 
-                return [1 => 'error', 2 => 'good'][$value];
+                return [1 => 'good', 2 => 'bad'][$value];
             });
             $form->number('qty', 'Quantity');
             $form->select('status')->options([1 => 'enable', 2 => 'disable']);
-            $form->display('vendor')->with(function ($value) {
-                if (!$value) {
-                    return;
-                }
-                if ($value) {
-                    return Vendor::find($value)->name;
-                }
-            });
+            $form->display('vendor_id', 'Vendor');
             $form->text('item_country', 'Country');
             $form->text('item_city', 'City');
-            $form->text('item_condition', 'Condition');
+            $form->select('item_condition', 'Condition')->options(function () {
+                return [
+                    'Brand New' => 'Brand New',
+                    'Pre-owned' => 'Pre-owned',
+                ];
+            });
             $form->select('attribute_set', 'Goods Type')->options(GoodsType::all()->pluck('name', 'id'));
             $form->decimal('price', 'Sell Price');
             $form->decimal('cost', 'Cost');
@@ -231,11 +246,6 @@ class ProductsController extends Controller
 
             $form->display('created_at', 'Created At');
             $form->display('updated_at', 'Updated At');
-
-            $form->saving(function (Form $form) {
-//                $form->set
-            });
-
         });
     }
 }
