@@ -2,6 +2,7 @@
 
 namespace App\Admin\Controllers;
 
+use App\Admin\Extensions\Chart\Chart;
 use App\Http\Controllers\Controller;
 use Encore\Admin\Controllers\Dashboard;
 use Encore\Admin\Facades\Admin;
@@ -18,22 +19,12 @@ class HomeController extends Controller
             $content->header('Dashboard');
             $content->description('Description...');
 
-            $content->row(Dashboard::title());
-
             $content->row(function (Row $row) {
-
-                $row->column(4, function (Column $column) {
-                    $column->append(Dashboard::environment());
-                });
-
-                $row->column(4, function (Column $column) {
-                    $column->append(Dashboard::extensions());
-                });
-
-                $row->column(4, function (Column $column) {
-                    $column->append(Dashboard::dependencies());
+                $row->column('12', function (Column $column) {
+                    $column->append(Chart::chart());
                 });
             });
         });
     }
 }
+
