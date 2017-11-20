@@ -10,7 +10,6 @@ namespace App\Admin\Extensions\Chart;
 
 use App\Models\Products;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Log;
 
 class Chart
 {
