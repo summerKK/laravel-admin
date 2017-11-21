@@ -17,9 +17,10 @@ class Chart
     {
         return view('Dashboard.chart', [
             'data' => [
-                'brands'  => self::statisticsByBrands(),
-                'type'    => self::statisticsByType(),
-                'country' => self::statisticsByCountry(),
+                'brands'   => self::statisticsByBrands(),
+                'type'     => self::statisticsByType(),
+                'country'  => self::statisticsByCountry(),
+                'country1' => self::statisticsByCountry1(),
             ],
         ]);
     }
@@ -161,5 +162,32 @@ STR;
         }
 
         return json_encode($formatData);
+    }
+
+    public static function statisticsByCountry1()
+    {
+        $countries = Products::selectRaw('count(*) count,item_country country')
+            ->groupBy('item_country')
+            ->get();
+
+        $formatData = [
+            'legend' => [],
+            'series' => [],
+        ];
+        foreach ($countries as $country) {
+            if (!$country->country) {
+                $country->country = 'Unknown';
+            }
+            $name = ucfirst($country->country) . "($country->count)";
+            if (!in_array($name, $formatData['legend'], true)) {
+                array_push($formatData['legend'], $name);
+                array_push($formatData['series'], ['value' => $country->count, 'name' => $name]);
+            }
+        }
+
+        return [
+            'legend' => json_encode($formatData['legend']),
+            'series' => json_encode($formatData['series']),
+        ];
     }
 }

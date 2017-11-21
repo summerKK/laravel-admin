@@ -23,9 +23,18 @@
                     <div id="statisticsCategory" style="width: 800px;height:600px;"></div>
                 </div>
 
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" style="height: 100px;">
+
+                </div>
+
                 <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
                     <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
                     <div id="statisticsWorld" style="width: 800px;height:600px;"></div>
+                </div>
+
+                <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                    <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
+                    <div id="statisticsWorld1" style="width: 800px;height:600px;"></div>
                 </div>
 
             </table>
@@ -143,6 +152,48 @@
                     emphasis: {label: {show: true}}
                 },
                 data: {!! $data['country'] !!}
+            }
+        ]
+    };
+
+    // 使用刚指定的配置项和数据显示图表。
+    myChart.setOption(option);
+</script>
+
+<script type="text/javascript">
+    // 基于准备好的dom，初始化echarts实例
+    var myChart = echarts.init(document.getElementById('statisticsWorld1'));
+
+    // 指定图表的配置项和数据
+    var option = {
+        title: {
+            text: 'Product Locations Statistics',
+            subtext: '',
+            x: 'center'
+        },
+        tooltip: {
+            trigger: 'item',
+            formatter: "{a} <br/>{b} : {c} ({d}%)"
+        },
+        legend: {
+            orient: 'vertical',
+            left: 'left',
+            data: {!! $data['country1']['legend'] !!}
+        },
+        series: [
+            {
+                name: '访问来源',
+                type: 'pie',
+                radius: '55%',
+                center: ['50%', '60%'],
+                data: {!! $data['country1']['series'] !!},
+                itemStyle: {
+                    emphasis: {
+                        shadowBlur: 10,
+                        shadowOffsetX: 0,
+                        shadowColor: 'rgba(0, 0, 0, 0.5)'
+                    }
+                }
             }
         ]
     };
