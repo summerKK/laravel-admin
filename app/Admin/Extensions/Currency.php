@@ -11,12 +11,7 @@ class Currency{
      * @var string apiKey
      */
     private $apiKey = [
-        'af14fe34a41091c36334ca8259389c9b',
-        '9f56e1aec6408c36a6f6b1bd30dd13a3',
-        'b7b0239abb5d07a39ec788dcd911b1e5',
-        'c33df95142d9a48b14388ff6c28a3e45',
-        'ddb0fe8bc7f99a3b437bc374b9496f49',
-        'e90d64ac77c7fc3a83e47488aff49ccb',
+        '*'
     ];
     /**
      * @var string cachePrefix

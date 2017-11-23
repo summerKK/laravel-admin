@@ -10,12 +10,12 @@ return [
     /*
      * Logo in admin panel header.
      */
-    'logo'          => '<b>Laravel</b> admin',
+    'logo'          => '<b>Luxsens</b> System Management',
 
     /*
      * Mini-logo in admin panel header.
      */
-    'logo-mini'     => '<b>La</b>',
+    'logo-mini'     => '<b>Lux</b>',
 
     /*
      * Route configration.
